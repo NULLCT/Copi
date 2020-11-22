@@ -8,14 +8,22 @@
 #              |_|         #
 #      Made by NULLCT      #
 
-if type "pbcopy" > /dev/null 2>&1; then # pbcopy
+if type "clip.exe" > /dev/null 2>&1; then
+  'cat' | clip.exe
+  echo "Copy by clip"
+  exit
+fi
+
+if type "pbcopy" > /dev/null 2>&1; then
   'cat' | pbcopy
   echo "Copy by pbcopy"
-else
-  if type "xclip" > /dev/null 2>&1; then # pbcopy
-    'cat' | xclip -in -sel clip
-    echo "Copy by xclip"
-  else
-    echo "Not found command for copy" >&2 # 404
-  fi
+  exit
 fi
+
+if type "xclip" > /dev/null 2>&1; then
+  'cat' | xclip -in -sel clip
+  echo "Copy by xclip"
+  exit
+fi
+
+echo "Not found command for copy" >&2 # 404
