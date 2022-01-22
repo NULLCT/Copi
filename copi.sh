@@ -10,20 +10,21 @@
 
 if type "clip.exe" > /dev/null 2>&1; then
   'cat' | clip.exe
-  echo "Copy by clip"
-  exit
+  tr=true
 fi
 
 if type "pbcopy" > /dev/null 2>&1; then
   'cat' | pbcopy
-  echo "Copy by pbcopy"
-  exit
+  tr=true
 fi
 
 if type "xclip" > /dev/null 2>&1; then
   'cat' | xclip -in -sel clip
-  echo "Copy by xclip"
-  exit
+  tr=true
 fi
 
-echo "Not found command for copy" >&2 # 404
+if "${tr}";then
+  return 0
+else
+  return 1
+fi
